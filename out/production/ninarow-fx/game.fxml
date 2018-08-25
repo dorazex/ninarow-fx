@@ -14,7 +14,7 @@
             <Button fx:id="loadButton" mnemonicParsing="false" text="Load" />
             <Button fx:id="startButton" mnemonicParsing="false" text="Start" />
              <Button fx:id="historyButton" mnemonicParsing="false" text="History" />
-             <Button fx:id="exitButton" mnemonicParsing="false" text="Exit" />
+             <Button fx:id="endGameButton" mnemonicParsing="false" text="Exit" />
          </children>
       </HBox>
 

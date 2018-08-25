@@ -57,6 +57,17 @@ public class Controller {
     {
     }
 
+    private void updateMessage(String message, Boolean isError){
+        if (isError) {
+            messageLabel.setTextFill(Paint.valueOf("RED"));
+            messageLabel.setBackground(new Background(new BackgroundFill(Paint.valueOf("YELLOW"), CornerRadii.EMPTY, Insets.EMPTY)));
+        } else {
+            messageLabel.setTextFill(Paint.valueOf("BLACK"));
+            messageLabel.setBackground(null);
+        }
+        messageLabel.setText(message);
+    }
+
     private void initializeBoard(Integer rows, Integer columns){
 
         boardGridPane.getColumnConstraints().clear();
@@ -147,11 +158,9 @@ public class Controller {
         task.setOnSucceeded(event -> {
             if (task.getValue().size() != 0) {
                 createGame(task.getValue().get(0));
-                messageLabel.setText(task.getMessage());
+                this.updateMessage(task.getMessage(), false);
             } else {
-                messageLabel.setTextFill(Paint.valueOf("RED"));
-                messageLabel.setBackground(new Background(new BackgroundFill(Paint.valueOf("YELLOW"), CornerRadii.EMPTY, Insets.EMPTY)));
-                messageLabel.setText(task.getMessage());
+                this.updateMessage(task.getMessage(), true);
             }
         });
 
@@ -170,12 +179,37 @@ public class Controller {
         loadXml(configXmlPath);
     }
 
+    private ArrayList<Player> getPlayers(){
+        ArrayList<Player> players = new ArrayList<>();
+
+        players.add();
+
+        return players;
+    }
+
+    private void startHandler(){
+        if (this.game == null){
+            updateMessage("No game loaded yet", true);
+        } else if (this.game.getIsStarted() == true){
+            updateMessage("Game has already started", true);
+        } else{
+            this.game.start(this.getPlayers());
+            updateMessage("Game started successfully", false);
+        }
+    }
+
     @FXML
     private void initialize()
     {
         loadButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 loadHandler();
+            }
+        });
+
+        startButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                startHandler();
             }
         });
 
