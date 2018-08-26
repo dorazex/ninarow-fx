@@ -51,6 +51,7 @@ public class Controller {
 
     private Game game;
     private Desktop desktop = Desktop.getDesktop();
+    private HashMap<String, Object> configMap;
 
 
     public Controller()
@@ -73,6 +74,7 @@ public class Controller {
         boardGridPane.getColumnConstraints().clear();
         boardGridPane.getRowConstraints().clear();
         boardGridPane.setAlignment(Pos.CENTER);
+        boardGridPane.getChildren().clear();
 
         RowConstraints rowConstraints = new RowConstraints(
                 0,
@@ -117,6 +119,8 @@ public class Controller {
     }
 
     private void createGame(HashMap<String, Object> parametersMap){
+        this.configMap = parametersMap;
+
         String variant = (String) parametersMap.get("variant");
         Integer target = (Integer) parametersMap.get("target");
         Integer rows = (Integer) parametersMap.get("rows");
@@ -171,18 +175,48 @@ public class Controller {
         Stage stage = (Stage) boardAnchor.getScene().getWindow();
 
         File file = fileChooser.showOpenDialog(stage);
+        if (file == null) return null;
         return file.getAbsolutePath();
     }
 
     private void loadHandler(){
-        String configXmlPath = getXmlPathUserInput();
-        loadXml(configXmlPath);
+        if (this.game != null && this.game.getIsStarted()){
+            updateMessage("Cannot load XML: game has already started", true);
+        } else {
+            String configXmlPath = getXmlPathUserInput();
+            if (configXmlPath == null) updateMessage("No file chosen", true);
+            loadXml(configXmlPath);
+        }
     }
 
     private ArrayList<Player> getPlayers(){
         ArrayList<Player> players = new ArrayList<>();
+        ArrayList<HashMap<String, String>> playersMap = (ArrayList<HashMap<String, String>>) this.configMap.get("players");
+        for (HashMap<String, String> playerMap: playersMap){
+            Integer id = Integer.parseInt(playerMap.get("id"));
+            String name = playerMap.get("name");
+            String type = playerMap.get("type");
 
-        players.add();
+            Player player;
+            switch (type){
+                case "Human":
+                    player = new PlayerFX(id, name,"red");
+                    break;
+                case "Computer":
+                    player = new PlayerComputer(id, "yellow");
+                    break;
+                default:
+                    player = new PlayerCommon(id, "white") {
+                        @Override
+                        public TurnRecord makeTurn(Board board) {
+                            return null;
+                        }
+                    };
+                    break;
+            }
+
+            players.add(player);
+        }
 
         return players;
     }
