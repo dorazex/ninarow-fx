@@ -79,7 +79,14 @@ public class XmlLoader {
                 throw new ConfigXmlException("Players count must be between 2 to 6");
             }
 
-
+            for (int i = 0; i < playersMap.size(); i++) {
+                for (int j = 0; j < playersMap.size(); j++) {
+                    if(j!=i){
+                        if (playersMap.get(i).get("id").equals(playersMap.get(j).get("id")))
+                            throw new ConfigXmlException("Each player must have a unique ID");
+                    }
+                }
+            }
 
 
             parametersMap.put("variant", variant);
