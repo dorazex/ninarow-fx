@@ -1,11 +1,13 @@
 public abstract class PlayerCommon implements Player {
     protected Integer turnsCount;
     private Integer id;
+    private String name;
     private String discType;
 
-    public PlayerCommon(Integer id, String discType){
+    public PlayerCommon(Integer id, String name, String discType){
         this.turnsCount = 0;
         this.id = id;
+        this.name = name;
         this.discType = discType;
     }
 
@@ -17,6 +19,11 @@ public abstract class PlayerCommon implements Player {
     @Override
     public Integer getId() {
         return this.id;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     @Override

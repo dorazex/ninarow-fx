@@ -18,7 +18,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.awt.*;
+
+import java.awt.Desktop;
+import java.util.List;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -52,6 +54,14 @@ public class Controller {
     private Game game;
     private Desktop desktop = Desktop.getDesktop();
     private HashMap<String, Object> configMap;
+    private static List<String> colors = Arrays.asList(
+            "RED",
+            "GREEN",
+            "BLUE",
+            "YELLOW",
+            "WHITE",
+            "PURPLE");
+
 
 
     public Controller()
@@ -192,21 +202,23 @@ public class Controller {
     private ArrayList<Player> getPlayers(){
         ArrayList<Player> players = new ArrayList<>();
         ArrayList<HashMap<String, String>> playersMap = (ArrayList<HashMap<String, String>>) this.configMap.get("players");
+        Integer i = 0;
         for (HashMap<String, String> playerMap: playersMap){
             Integer id = Integer.parseInt(playerMap.get("id"));
             String name = playerMap.get("name");
             String type = playerMap.get("type");
+            String color = Controller.colors.get(i);
 
             Player player;
             switch (type){
                 case "Human":
-                    player = new PlayerFX(id, name,"red");
+                    player = new PlayerFX(id, name, color);
                     break;
                 case "Computer":
-                    player = new PlayerComputer(id, "yellow");
+                    player = new PlayerComputer(id, name,  color);
                     break;
                 default:
-                    player = new PlayerCommon(id, "white") {
+                    player = new PlayerCommon(id, name,  color) {
                         @Override
                         public TurnRecord makeTurn(Board board) {
                             return null;
@@ -214,8 +226,8 @@ public class Controller {
                     };
                     break;
             }
-
             players.add(player);
+            i++;
         }
 
         return players;
@@ -229,6 +241,8 @@ public class Controller {
         } else{
             this.game.start(this.getPlayers());
             updateMessage("Game started successfully", false);
+            System.out.println(this.game.toString());
+            System.out.println(this.game.getBoard().toString());
         }
     }
 

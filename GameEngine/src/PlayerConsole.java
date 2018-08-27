@@ -3,8 +3,8 @@ import java.util.Scanner;
 public class PlayerConsole extends PlayerCommon {
     private Scanner scanner;
 
-    public PlayerConsole(Integer id, String discType, Scanner scanner){
-        super(id, discType);
+    public PlayerConsole(Integer id, String name, String discType, Scanner scanner){
+        super(id, name, discType);
         this.scanner = scanner;
     }
 

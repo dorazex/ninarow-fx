@@ -1,8 +1,8 @@
 import java.util.Random;
 
 public class PlayerComputer extends PlayerCommon {
-    public PlayerComputer(Integer id, String discType){
-        super(id, discType);
+    public PlayerComputer(Integer id, String name, String discType){
+        super(id, name, discType);
     }
 
     @Override

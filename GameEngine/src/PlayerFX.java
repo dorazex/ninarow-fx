@@ -2,14 +2,12 @@ import java.util.Scanner;
 
 public class PlayerFX extends PlayerCommon {
     private String id;
-    private String name;
     private String discType;
     private String color;
 
 
     public PlayerFX(Integer id, String name, String color){
-        super(id, color);
-        this.name = name;
+        super(id, name, color);
         this.color = color;
     }
 
