@@ -11,7 +11,11 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
-<VBox fx:id="mainVBox" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<VBox fx:id="mainVBox"
+      xmlns="http://javafx.com/javafx/8.0.121"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="Controller"
+      VBox.vgrow="SOMETIMES">
    <children>
       <HBox fx:id="controlsHBox">
          <children>
@@ -24,14 +28,34 @@
 
        <AnchorPane fx:id="boardAnchor">
            <children>
-               <GridPane fx:id="boardGridPane" prefHeight="500.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <HBox fx:id="boardTopHBox"
+                     HBox.hgrow="ALWAYS"
+                     AnchorPane.leftAnchor="0.0"
+                     AnchorPane.rightAnchor="0.0"
+                     AnchorPane.topAnchor="0.0"/>
 
+               <GridPane fx:id="boardGridPane"
+                         prefHeight="500.0"
+                         prefWidth="500.0"
+                         AnchorPane.bottomAnchor="25.0"
+                         AnchorPane.leftAnchor="0.0"
+                         AnchorPane.rightAnchor="0.0"
+                         AnchorPane.topAnchor="25.0">
                </GridPane>
+
+               <HBox fx:id="boardBottomHBox"
+                     HBox.hgrow="ALWAYS"
+                     AnchorPane.leftAnchor="0.0"
+                     AnchorPane.rightAnchor="0.0"
+                     AnchorPane.bottomAnchor="0.0"/>
            </children>
        </AnchorPane>
 
 
-       <VBox fx:id="playersDetailsVbox">
+       <VBox fx:id="playersDetailsVbox"
+             minHeight="27"
+             maxHeight="Infinity"
+             VBox.vgrow="ALWAYS">
            <children>
                <ListView fx:id="playersDetailsListView">
                </ListView>

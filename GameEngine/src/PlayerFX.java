@@ -16,4 +16,9 @@ public class PlayerFX extends PlayerCommon {
         TurnRecord turnRecord = board.putDisc(this, 1);
         return turnRecord;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s%s", "Human\t\t", super.toString());
+    }
 }

@@ -18,4 +18,9 @@ public class PlayerComputer extends PlayerCommon {
         this.turnsCount += 1;
         return turnRecord;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s%s", "Computer\t\t", super.toString());
+    }
 }

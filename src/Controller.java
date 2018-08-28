@@ -1,3 +1,6 @@
+import javafx.beans.InvalidationListener;
+import javafx.beans.value.ObservableStringValue;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -16,6 +19,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 
+import javax.swing.event.ChangeListener;
 import java.awt.Desktop;
 import java.util.List;
 import java.io.File;
@@ -49,17 +53,21 @@ public class Controller {
     private Label messageLabel;
     @FXML
     private ListView<Label> playersDetailsListView;
+    @FXML
+    private HBox boardTopHBox;
+    @FXML
+    private HBox boardBottomHBox;
 
     private Game game;
     private Desktop desktop = Desktop.getDesktop();
     private HashMap<String, Object> configMap;
     private static List<String> colors = Arrays.asList(
-            "RED",
-            "GREEN",
-            "BLUE",
+            "#ff7a7a",
+            "#9ff4af",
+            "CYAN",
             "YELLOW",
             "WHITE",
-            "PURPLE");
+            "PINK");
 
 
 
@@ -107,6 +115,16 @@ public class Controller {
         for (int x = 0; x < columns; x++) {
             boardGridPane.getColumnConstraints().add(columnConstraints);
             boardGridPane.getRowConstraints().add(rowConstraints);
+
+            Button topColumnButton = new Button("X");
+            Button bottomColumnButton = new Button("X");
+            topColumnButton.setMaxWidth(Double.MAX_VALUE);
+            bottomColumnButton.setMaxWidth(Double.MAX_VALUE);
+            HBox.setHgrow(topColumnButton, Priority.ALWAYS);
+            HBox.setHgrow(bottomColumnButton, Priority.ALWAYS);
+            this.boardTopHBox.getChildren().add(topColumnButton);
+            this.boardBottomHBox.getChildren().add(bottomColumnButton);
+
             for (int y = 0; y < rows; y++) {
                 Pane cellPane = new Pane();
                 BorderStroke[] borders = new BorderStroke[4];
@@ -143,10 +161,58 @@ public class Controller {
         playersDetailsListView.getItems().clear();
         ObservableList<Label> items = playersDetailsListView.getItems();
         for (Player player: this.getPlayers()){
-            items.add(new Label(player.getName()));
-        }
+            Label playerDetailsLabel = new Label();
+            playerDetailsLabel.textProperty().bind(
+                    new ObservableStringValue() {
+                        @Override
+                        public String get() {
+                            return player.toString();
+                        }
 
+                        @Override
+                        public void addListener(javafx.beans.value.ChangeListener<? super String> listener) {
+
+                        }
+
+                        @Override
+                        public void removeListener(javafx.beans.value.ChangeListener<? super String> listener) {
+
+                        }
+
+                        @Override
+                        public String getValue() {
+                            return player.toString();
+                        }
+
+                        @Override
+                        public void addListener(InvalidationListener listener) {
+
+                        }
+
+                        @Override
+                        public void removeListener(InvalidationListener listener) {
+
+                        }
+                    }
+            );
+            playerDetailsLabel.setBackground(
+                    new Background(
+                            new BackgroundFill(
+                                    Paint.valueOf(player.getDiscType()),
+                                    CornerRadii.EMPTY,
+                                    Insets.EMPTY)));
+            items.add(playerDetailsLabel);
+        }
         playersDetailsListView.setPrefHeight(items.size() * 24 + 2);
+
+
+//        this.playersDetailsListView.heightProperty().addListener(new javafx.beans.value.ChangeListener<Number>() {
+//            @Override
+//            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+//                mainVBox.setMaxHeight(newValue.intValue());
+//                mainVBox.setPrefHeight(newValue.intValue());
+//            }
+//        });
 
 
 //        this.playersDetailsListView.itemsProperty().bind();
@@ -256,6 +322,10 @@ public class Controller {
             updateMessage("Game started successfully", false);
             System.out.println(this.game.toString());
             System.out.println(this.game.getBoard().toString());
+//            Boolean isGameEnded = this.game.makeTurn();
+//            while (!isGameEnded){
+//                isGameEnded = this.game.makeTurn();
+//            }
         }
     }
 

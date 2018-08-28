@@ -14,11 +14,11 @@ public class Main extends Application {
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(scene);
 
-        primaryStage.minWidthProperty().bind(scene.heightProperty().multiply(1));
-        primaryStage.minHeightProperty().bind(scene.widthProperty().divide(1));
-
-        primaryStage.setHeight(300);
-        primaryStage.setWidth(300);
+//        primaryStage.minWidthProperty().bind(scene.heightProperty().multiply(1));
+//        primaryStage.minHeightProperty().bind(scene.widthProperty().divide(1));
+//
+//        primaryStage.setHeight(300);
+//        primaryStage.setWidth(300);
 
         ScenicView.show(scene);
         primaryStage.show();
