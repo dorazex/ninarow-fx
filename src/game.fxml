@@ -7,6 +7,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+<?import org.controlsfx.control.ListSelectionView?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
 <VBox fx:id="mainVBox" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
    <children>
       <HBox fx:id="controlsHBox">
@@ -20,14 +24,32 @@
 
        <AnchorPane fx:id="boardAnchor">
            <children>
-               <GridPane fx:id="boardGridPane" prefHeight="500.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <GridPane fx:id="boardGridPane"
+                         prefHeight="500.0"
+                         prefWidth="500.0"
+                         AnchorPane.bottomAnchor="0.0"
+                         AnchorPane.leftAnchor="0.0"
+                         AnchorPane.rightAnchor="0.0"
+                         AnchorPane.topAnchor="0.0">
 
                </GridPane>
            </children>
        </AnchorPane>
 
-      <Label fx:id="messageLabel" text="Label" />
-      <Label fx:id="statusLabel" text="Label" />
+
+       <VBox fx:id="playersDetailsVbox">
+           <children>
+               <ListView fx:id="playersDetailsListView">
+               </ListView>
+           </children>
+       </VBox>
+
+
+       <Label fx:id="messageLabel"
+              text="Label"
+              minHeight="25"
+              maxHeight="25"
+       />
 
    </children>
 </VBox>

@@ -8,10 +8,7 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -51,7 +48,7 @@ public class Controller {
     @FXML
     private Label messageLabel;
     @FXML
-    private Label statusLabel;
+    private ListView<Label> playersDetailsListView;
 
     private Game game;
     private Desktop desktop = Desktop.getDesktop();
@@ -79,6 +76,9 @@ public class Controller {
             messageLabel.setBackground(null);
         }
         messageLabel.setText(message);
+        messageLabel.setPrefHeight(25);
+        messageLabel.setMinHeight(25);
+        messageLabel.setMaxHeight(25);
     }
 
     private void initializeBoard(Integer rows, Integer columns){
@@ -140,7 +140,16 @@ public class Controller {
 
         this.game = new Game(target, rows, columns);
 
-        this.statusLabel.textProperty().bind(this.game.stringPropertyProperty());
+        playersDetailsListView.getItems().clear();
+        ObservableList<Label> items = playersDetailsListView.getItems();
+        for (Player player: this.getPlayers()){
+            items.add(new Label(player.getName()));
+        }
+
+        playersDetailsListView.setPrefHeight(items.size() * 24 + 2);
+
+
+//        this.playersDetailsListView.itemsProperty().bind();
         initializeBoard(this.game.getBoard().getRows(), this.game.getBoard().getColumns());
     }
 

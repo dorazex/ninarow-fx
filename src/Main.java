@@ -17,8 +17,8 @@ public class Main extends Application {
         primaryStage.minWidthProperty().bind(scene.heightProperty().multiply(1));
         primaryStage.minHeightProperty().bind(scene.widthProperty().divide(1));
 
-        primaryStage.setHeight(500);
-        primaryStage.setWidth(500);
+        primaryStage.setHeight(300);
+        primaryStage.setWidth(300);
 
         ScenicView.show(scene);
         primaryStage.show();
