@@ -26,8 +26,8 @@
            </children>
        </AnchorPane>
 
-      <Label fx:id="messageLabel"
-             text="Label" />
+      <Label fx:id="messageLabel" text="Label" />
+      <Label fx:id="statusLabel" text="Label" />
 
    </children>
 </VBox>

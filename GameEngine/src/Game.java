@@ -1,3 +1,7 @@
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import sun.java2d.pipe.SpanShapeRenderer;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -11,6 +15,7 @@ public class Game {
     private Date startDate;
     private Player winnerPlayer;
     private History history;
+    private SimpleStringProperty stringProperty;
 
     public int getTarget() { return target; }
 
@@ -34,6 +39,10 @@ public class Game {
         return history;
     }
 
+    public SimpleStringProperty stringPropertyProperty() {
+        return stringProperty;
+    }
+
     public Game(){};
 
     public Game(int target, int rows, int columns){
@@ -44,6 +53,8 @@ public class Game {
         this.startDate = null;
         this.winnerPlayer = null;
         this.history = new History();
+        this.stringProperty = new SimpleStringProperty();
+        this.stringProperty.set("START VALUE");
     }
 
     public Game(int target, Board board){
@@ -91,7 +102,6 @@ public class Game {
 
     @Override
     public String toString() {
-
         String fullFormat =
                 "%s\n" +
                 "------------------------------------\n" +
@@ -135,7 +145,7 @@ public class Game {
 
             Date currentTime = new Date();
             String durationString = this.getDurationString(currentTime);
-            return String.format(fullFormat,
+            String finalString =  String.format(fullFormat,
                     headerLine,
                     this.isStarted.toString(),
                     this.target,
@@ -144,12 +154,16 @@ public class Game {
                     this.board,
                     durationString,
                     menu);
+            this.stringProperty.set(finalString);
+            return finalString;
         } else {
-            return String.format(shortFormat,
+            String finalString = String.format(shortFormat,
                     this.isStarted.toString(),
                     this.target,
                     this.board,
                     menu);
+            this.stringProperty.set(finalString);
+            return finalString;
         }
     }
 }

@@ -50,6 +50,8 @@ public class Controller {
     private Button endGameButton;
     @FXML
     private Label messageLabel;
+    @FXML
+    private Label statusLabel;
 
     private Game game;
     private Desktop desktop = Desktop.getDesktop();
@@ -137,6 +139,8 @@ public class Controller {
         Integer columns = (Integer) parametersMap.get("columns");
 
         this.game = new Game(target, rows, columns);
+
+        this.statusLabel.textProperty().bind(this.game.stringPropertyProperty());
         initializeBoard(this.game.getBoard().getRows(), this.game.getBoard().getColumns());
     }
 
