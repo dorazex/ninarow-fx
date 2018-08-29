@@ -117,13 +117,20 @@ public class Controller {
             boardGridPane.getRowConstraints().add(rowConstraints);
 
             Button topColumnButton = new Button("X");
+            topColumnButton.setId(String.format("boardTopButton%d", x));
             Button bottomColumnButton = new Button("X");
+            bottomColumnButton.setId(String.format("boardBottomButton%d", x));
             topColumnButton.setMaxWidth(Double.MAX_VALUE);
             bottomColumnButton.setMaxWidth(Double.MAX_VALUE);
             HBox.setHgrow(topColumnButton, Priority.ALWAYS);
             HBox.setHgrow(bottomColumnButton, Priority.ALWAYS);
             this.boardTopHBox.getChildren().add(topColumnButton);
             this.boardBottomHBox.getChildren().add(bottomColumnButton);
+
+            final int columnIndex = x;
+            topColumnButton.setOnAction((ActionEvent event) -> {
+                topColumnButton.fireEvent(new UserTurnClickEvent(columnIndex));
+            });
 
             for (int y = 0; y < rows; y++) {
                 Pane cellPane = new Pane();
