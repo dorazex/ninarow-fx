@@ -120,7 +120,8 @@ public class Board {
 
     public void addPlayers(ArrayList<Player> players){
         for (Player player: players){
-            this.playersDiscTypeMap.put(player.getId(), player.getDiscType());
+            String lastCharOfDiscType = Character.toString(player.getDiscType().charAt(player.getDiscType().length() - 1));
+            this.playersDiscTypeMap.put(player.getId(), lastCharOfDiscType);
         }
         this.playersCount = players.size();
     }

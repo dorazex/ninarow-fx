@@ -59,6 +59,7 @@ public class Controller {
     private HBox boardBottomHBox;
 
     private Game game;
+    private Boolean isGameEnded;
     private Desktop desktop = Desktop.getDesktop();
     private HashMap<String, Object> configMap;
     private static List<String> colors = Arrays.asList(
@@ -87,6 +88,24 @@ public class Controller {
         messageLabel.setPrefHeight(25);
         messageLabel.setMinHeight(25);
         messageLabel.setMaxHeight(25);
+    }
+
+    public Boolean makeTurn(Integer column){
+        Player currentPlayer = game.getPlayers().get(game.getCurrentPlayerIndex());
+        if (currentPlayer.getClass().equals(PlayerFX.class)) {
+            TurnRecord turnRecord = ((PlayerFX) currentPlayer).makeTurnFX(game.getBoard(), column);
+
+            game.getHistory().pushTurn(turnRecord);
+            ((PlayerFX) currentPlayer).setTurnsCount(((PlayerFX) currentPlayer).getTurnsCount() + 1);
+            System.out.println(game.toString());
+            if (game.isEndWithWinner()) {
+                game.setWinnerPlayer(currentPlayer);
+                return true;
+            }
+            game.advanceToNextPlayer();
+            makeComputerTurns();
+        }
+        return game.getBoard().isFull();
     }
 
     private void initializeBoard(Integer rows, Integer columns){
@@ -130,6 +149,16 @@ public class Controller {
             final int columnIndex = x;
             topColumnButton.setOnAction((ActionEvent event) -> {
                 topColumnButton.fireEvent(new UserTurnClickEvent(columnIndex));
+            });
+
+            topColumnButton.addEventHandler(CustomEvent.CUSTOM_EVENT_TYPE, new UserTurnClickEventHandler() {
+
+                @Override
+                public void onUserClick(int column) {
+                    if (!game.getIsStarted()) return;
+                    isGameEnded = makeTurn(column);
+                }
+
             });
 
             for (int y = 0; y < rows; y++) {
@@ -319,6 +348,19 @@ public class Controller {
         return players;
     }
 
+    private void makeComputerTurns(){
+        this.isGameEnded = false;
+        while (!this.isGameEnded){
+            Player currentPlayer = game.getPlayers().get(game.getCurrentPlayerIndex());
+            if (!currentPlayer.getClass().equals(PlayerFX.class)){
+                this.isGameEnded = this.game.makeTurn();
+                System.out.println(game.toString());
+            }else{
+                break;
+            }
+        }
+    }
+
     private void startHandler(){
         if (this.game == null){
             updateMessage("No game loaded yet", true);
@@ -329,10 +371,7 @@ public class Controller {
             updateMessage("Game started successfully", false);
             System.out.println(this.game.toString());
             System.out.println(this.game.getBoard().toString());
-//            Boolean isGameEnded = this.game.makeTurn();
-//            while (!isGameEnded){
-//                isGameEnded = this.game.makeTurn();
-//            }
+            this.makeComputerTurns();
         }
     }
 

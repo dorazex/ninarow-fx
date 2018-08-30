@@ -35,6 +35,10 @@ public class Game {
         return this.winnerPlayer;
     }
 
+    public void setWinnerPlayer(Player winnerPlayer) {
+        this.winnerPlayer = winnerPlayer;
+    }
+
     public History getHistory() {
         return history;
     }
@@ -73,11 +77,11 @@ public class Game {
         return String.format("%02d:%02d", minutes, seconds);
     }
 
-    private void advanceToNextPlayer(){
+    public void advanceToNextPlayer(){
         this.currentPlayerIndex = (this.currentPlayerIndex+ 1) % this.players.size();
     }
 
-    private Boolean isEndWithWinner(){
+    public Boolean isEndWithWinner(){
         return this.board.isTargetReached(this.target);
     }
 

@@ -13,7 +13,14 @@ public class PlayerFX extends PlayerCommon {
 
     @Override
     public TurnRecord makeTurn(Board board) {
+
         TurnRecord turnRecord = board.putDisc(this, 1);
+        return turnRecord;
+    }
+
+    public TurnRecord makeTurnFX(Board board, Integer column) {
+
+        TurnRecord turnRecord = board.putDisc(this, column);
         return turnRecord;
     }
 

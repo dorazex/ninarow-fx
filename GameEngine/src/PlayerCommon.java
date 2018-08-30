@@ -16,6 +16,10 @@ public abstract class PlayerCommon implements Player {
         return this.turnsCount;
     }
 
+    public void setTurnsCount(Integer turnsCount) {
+        this.turnsCount = turnsCount;
+    }
+
     @Override
     public Integer getId() {
         return this.id;
