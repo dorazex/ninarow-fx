@@ -1,3 +1,5 @@
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import java.util.Scanner;
 
 public class PlayerFX extends PlayerCommon {
@@ -13,9 +15,7 @@ public class PlayerFX extends PlayerCommon {
 
     @Override
     public TurnRecord makeTurn(Board board) {
-
-        TurnRecord turnRecord = board.putDisc(this, 1);
-        return turnRecord;
+        throw new NotImplementedException();
     }
 
     public TurnRecord makeTurnFX(Board board, Integer column) {

@@ -13,9 +13,11 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -83,6 +85,53 @@ public class Controller {
 
     public Controller()
     {
+    }
+
+    private Integer getBoardCellContent(int x, int y){
+        return this.game.getBoard().getCells().get(x).get(y);
+    }
+
+    private Paint getColorOfPlayer(Player player){
+        return Paint.valueOf(player.getDiscType());
+    }
+
+    private Paint getColorOfPlayer(Integer id){
+        for (Player player: players){
+            if (player.getId().equals(id)) return Paint.valueOf(player.getDiscType());
+        }
+        return null;
+    }
+
+    private Pane getCellPaneFromGridPane(int col, int row) {
+        for (Node node : boardGridPane.getChildren()) {
+            if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
+                return (Pane) node;
+            }
+        }
+        return null;
+    }
+
+
+    private void renderBoard(){
+        ArrayList<ArrayList<Integer>> cells = this.game.getBoard().getCells();
+        int x = -1;
+        int y = -1;
+        for (ArrayList<Integer> column: cells){
+            x++;
+            y = -1;
+            for (Integer cellContent: column){
+                y++;
+                Pane pane = getCellPaneFromGridPane(x, y);
+                Circle circle = new Circle(8);
+                Paint color = getColorOfPlayer(cellContent);
+                if (color!=null){
+                    circle.setFill(color);
+                }
+                if (pane == null) continue;
+                pane.getChildren().clear();
+                pane.getChildren().add(circle);
+            }
+        }
     }
 
     private void updateMessage(String message, Boolean isError){
@@ -375,6 +424,7 @@ public class Controller {
     }
 
     private void updateCurrentPlayerIndication(){
+        renderBoard();
         for (Player player: this.getPlayers()){
             Label playerDetailsLabel = (Label) this.playersDetailsListView.lookup("#" + String.format("PlayerLabel-%d", player.getId()));
             playerDetailsLabel.textProperty().bind(player.detailsProperty());
