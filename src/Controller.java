@@ -168,6 +168,7 @@ public class Controller {
                         return;
                     }
                     isGameEnded = makeTurn(column);
+                    updateCurrentPlayerIndication();
                 }
 
             });
@@ -210,6 +211,7 @@ public class Controller {
         ObservableList<Label> items = playersDetailsListView.getItems();
         for (Player player: this.getPlayers()){
             Label playerDetailsLabel = new Label();
+            playerDetailsLabel.setId(String.format("PlayerLabel-%d", player.getId()));
             playerDetailsLabel.textProperty().bind(player.detailsProperty());
             playerDetailsLabel.setBackground(
                     new Background(
@@ -217,6 +219,7 @@ public class Controller {
                                     Paint.valueOf(player.getDiscType()),
                                     CornerRadii.EMPTY,
                                     Insets.EMPTY)));
+
             items.add(playerDetailsLabel);
         }
         playersDetailsListView.setPrefHeight(items.size() * 24 + 2);
@@ -326,10 +329,37 @@ public class Controller {
             Player currentPlayer = game.getPlayers().get(game.getCurrentPlayerIndex());
             if (!currentPlayer.getClass().equals(PlayerFX.class)){
                 this.isGameEnded = this.game.makeTurn();
+                updateCurrentPlayerIndication();
                 System.out.println(game.toString());
             }else{
                 break;
             }
+        }
+    }
+
+    private void updateCurrentPlayerIndication(){
+        for (Player player: this.getPlayers()){
+            Label playerDetailsLabel = (Label) this.playersDetailsListView.lookup("#" + String.format("PlayerLabel-%d", player.getId()));
+            playerDetailsLabel.textProperty().bind(player.detailsProperty());
+            playerDetailsLabel.setBackground(
+                    new Background(
+                            new BackgroundFill(
+                                    Paint.valueOf(player.getDiscType()),
+                                    CornerRadii.EMPTY,
+                                    Insets.EMPTY)));
+
+            if (player.getIsCurrentTurn()){
+                BorderStroke[] borders = new BorderStroke[4];
+                Arrays.fill(borders, new BorderStroke(
+                        Paint.valueOf("BLACK"),
+                        BorderStrokeStyle.SOLID,
+                        new CornerRadii(0.5),
+                        BorderWidths.DEFAULT));
+                playerDetailsLabel.setBorder(new Border(borders));
+            } else {
+                playerDetailsLabel.setBorder(null);
+            }
+
         }
     }
 
@@ -348,6 +378,8 @@ public class Controller {
             Timeline tl = new Timeline(update);
             tl.setCycleCount(Timeline.INDEFINITE);
             tl.play();
+
+            updateCurrentPlayerIndication();
 
             System.out.println(this.game.toString());
             System.out.println(this.game.getBoard().toString());

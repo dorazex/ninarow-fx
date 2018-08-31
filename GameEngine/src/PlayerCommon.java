@@ -8,6 +8,7 @@ public abstract class PlayerCommon implements Player {
     private Integer id;
     private String name;
     private String discType;
+    private Boolean isCurrentTurn;
 
     public PlayerCommon(Integer id, String name, String discType){
         this.turnsCount = new SimpleIntegerProperty();
@@ -15,6 +16,7 @@ public abstract class PlayerCommon implements Player {
         this.id = id;
         this.name = name;
         this.discType = discType;
+        this.isCurrentTurn = false;
 
         this.details = new SimpleStringProperty();
         this.details.set(this.toString());
@@ -23,6 +25,15 @@ public abstract class PlayerCommon implements Player {
     @Override
     public Integer getTurnsCount() {
         return turnsCount.get();
+    }
+
+    @Override
+    public Boolean getIsCurrentTurn() {
+        return isCurrentTurn;
+    }
+
+    public void setCurrentTurn(Boolean currentTurn) {
+        isCurrentTurn = currentTurn;
     }
 
     @Override

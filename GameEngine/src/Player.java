@@ -9,4 +9,6 @@ public interface Player {
     String getDiscType();
     String getName();
     TurnRecord makeTurn(Board board);
+    Boolean getIsCurrentTurn();
+    void setCurrentTurn(Boolean currentTurn);
 }

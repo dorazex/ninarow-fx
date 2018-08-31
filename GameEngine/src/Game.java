@@ -92,6 +92,9 @@ public class Game {
 
     public void advanceToNextPlayer(){
         this.currentPlayerIndex = (this.currentPlayerIndex+ 1) % this.players.size();
+        for (int i = 0; i < this.players.size(); i++) {
+            this.players.get(i).setCurrentTurn(i == this.currentPlayerIndex);
+        }
     }
 
     public Boolean isEndWithWinner(){
@@ -100,6 +103,7 @@ public class Game {
 
     public void start(ArrayList<Player> players){
         this.players = players;
+        this.players.get(0).setCurrentTurn(true);
         this.board.addPlayers(this.players);
 
         this.isStarted = true;
