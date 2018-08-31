@@ -7,14 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameEngine/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameEngine/src/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameEngine/src/PlayerCommon.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameEngine/src/PlayerCommon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameEngine/src/PlayerComputer.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameEngine/src/PlayerComputer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameEngine/src/PlayerConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameEngine/src/PlayerConsole.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameEngine/Game.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameEngine/PlayerFX.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ninarow-fx/Controller$6.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameEngine/src/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameEngine/src/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/game.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/game.fxml" afterDir="false" />
     </list>
@@ -77,8 +70,8 @@
       <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="205" column="45" selection-start-line="205" selection-start-column="45" selection-end-line="205" selection-end-column="45" />
+            <state relative-caret-position="141">
+              <caret line="350" lean-forward="true" selection-start-line="350" selection-end-line="350" />
               <folding>
                 <element signature="method#Controller#0;class#Controller#0" />
                 <element signature="method#updateMessage#0;class#Controller#0" />
@@ -106,6 +99,15 @@
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Task.java" pinned="false" current-in-tab="false">
+        <entry file="jar:///usr/lib/jvm/java-8-oracle/javafx-src.zip!/javafx/concurrent/Task.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="234">
+              <caret line="1460" column="44" lean-forward="true" selection-start-line="1460" selection-start-column="44" selection-end-line="1460" selection-end-column="44" />
             </state>
           </provider>
         </entry>
@@ -150,11 +152,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PlayerComputer.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PlayerComputer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GameEngine/src/PlayerComputer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="14" column="26" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
+            <state relative-caret-position="190">
+              <caret line="12" column="45" lean-forward="true" selection-start-line="12" selection-start-column="45" selection-end-line="12" selection-end-column="45" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#751#752#0" expanded="true" />
@@ -168,8 +170,8 @@
         <entry file="file://$PROJECT_DIR$/src/game.fxml">
           <provider editor-type-id="JavaFX-Scene-Builder" />
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="367">
-              <caret line="41" column="80" selection-start-line="41" selection-start-column="80" selection-end-line="41" selection-end-column="80" />
+            <state relative-caret-position="386">
+              <caret line="42" column="36" selection-start-line="42" selection-start-column="36" selection-end-line="42" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -198,21 +200,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Game.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/GameEngine/src/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="102" column="35" lean-forward="true" selection-start-line="102" selection-start-column="35" selection-end-line="102" selection-end-column="35" />
+            <state relative-caret-position="408">
+              <caret line="121" column="33" selection-start-line="121" selection-start-column="33" selection-end-line="121" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#991#992#0" expanded="true" />
                 <element signature="e#1039#1040#0" expanded="true" />
                 <element signature="e#1060#1061#0" expanded="true" />
                 <element signature="e#1097#1098#0" expanded="true" />
-                <element signature="e#2109#2110#0" expanded="true" />
-                <element signature="e#2201#2202#0" expanded="true" />
-                <element signature="e#2343#2344#0" expanded="true" />
-                <element signature="e#2405#2406#0" expanded="true" />
+                <element signature="e#1405#1406#0" expanded="true" />
+                <element signature="e#1448#1449#0" expanded="true" />
+                <element signature="e#3625#3626#0" expanded="true" />
+                <element signature="e#3717#3718#0" expanded="true" />
+                <element signature="e#3756#3757#0" expanded="true" />
+                <element signature="e#3818#3819#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -229,11 +233,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>sample</find>
-      <find>exit</find>
-      <find>variant</find>
-      <find>loadhan</find>
-      <find>getiss</find>
       <find>loadhand</find>
       <find>loadhandle</find>
       <find>getXmlPathUserInput</find>
@@ -249,7 +248,6 @@
       <find>while</find>
       <find>maketurn</find>
       <find>setonac</find>
-      <find>maketurnf</find>
       <find>pushTurn</find>
       <find>isTargetReached</find>
       <find>playerf</find>
@@ -258,6 +256,13 @@
       <find>stringlabel</find>
       <find>getPlayers</find>
       <find>bind</find>
+      <find>maketurnf</find>
+      <find>getduration</find>
+      <find>getDurationString</find>
+      <find>durationprop</find>
+      <find>starthand</find>
+      <find>duration</find>
+      <find>getduratio</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$</dir>
@@ -280,15 +285,15 @@
         <option value="$PROJECT_DIR$/src/UserTurnClickEvent.java" />
         <option value="$PROJECT_DIR$/src/UserTurnClickEventHandler.java" />
         <option value="$PROJECT_DIR$/GameEngine/src/PlayerFX.java" />
-        <option value="$PROJECT_DIR$/GameEngine/src/Game.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
         <option value="$PROJECT_DIR$/GameEngine/src/Board.java" />
         <option value="$PROJECT_DIR$/GameEngine/src/PlayerConsole.java" />
-        <option value="$PROJECT_DIR$/src/game.fxml" />
         <option value="$PROJECT_DIR$/GameEngine/src/Player.java" />
         <option value="$PROJECT_DIR$/GameEngine/src/PlayerCommon.java" />
-        <option value="$PROJECT_DIR$/src/Controller.java" />
         <option value="$PROJECT_DIR$/GameEngine/src/PlayerComputer.java" />
+        <option value="$PROJECT_DIR$/src/game.fxml" />
+        <option value="$PROJECT_DIR$/src/Controller.java" />
+        <option value="$PROJECT_DIR$/GameEngine/src/Game.java" />
       </list>
     </option>
   </component>
@@ -512,18 +517,26 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/GameEngine/src/PlayerComputer.java</url>
-          <line>28</line>
+          <url>file://$PROJECT_DIR$/GameEngine/src/Game.java</url>
+          <line>107</line>
           <properties />
-          <option name="timeStamp" value="43" />
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Controller.java</url>
+          <line>345</line>
+          <properties />
+          <option name="timeStamp" value="48" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="44" />
+      <option name="time" value="49" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="boardGridPane.getChildren()" language="JAVA" />
         <watch expression="boardGridPane.getChildren()" language="JAVA" />
+        <watch expression="getDurationString()" language="JAVA" />
+        <watch expression="game.durationProperty().getValue()" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>
@@ -533,6 +546,21 @@
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>game.getDurationString()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>game.durationProperty().getValue()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>getDurationString()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>game.getPlayers().get(game.getCurrentPlayerIndex())</expression-string>
         <language-id>JAVA</language-id>
@@ -560,26 +588,6 @@
       </expression>
       <expression>
         <expression-string>this.game.getBoard().toString()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>this.game.getDurationString()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>this.game.getHistory()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>this.game.getCurrentPlayerIndex()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>mainVBox.setPrefHeight(120);</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -721,10 +729,12 @@
             <element signature="e#1039#1040#0" expanded="true" />
             <element signature="e#1060#1061#0" expanded="true" />
             <element signature="e#1097#1098#0" expanded="true" />
-            <element signature="e#2109#2110#0" expanded="true" />
-            <element signature="e#2201#2202#0" expanded="true" />
-            <element signature="e#2343#2344#0" expanded="true" />
-            <element signature="e#2405#2406#0" expanded="true" />
+            <element signature="e#1405#1406#0" expanded="true" />
+            <element signature="e#1448#1449#0" expanded="true" />
+            <element signature="e#3625#3626#0" expanded="true" />
+            <element signature="e#3717#3718#0" expanded="true" />
+            <element signature="e#3756#3757#0" expanded="true" />
+            <element signature="e#3818#3819#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -801,10 +811,12 @@
             <element signature="e#1039#1040#0" expanded="true" />
             <element signature="e#1060#1061#0" expanded="true" />
             <element signature="e#1097#1098#0" expanded="true" />
-            <element signature="e#2109#2110#0" expanded="true" />
-            <element signature="e#2201#2202#0" expanded="true" />
-            <element signature="e#2343#2344#0" expanded="true" />
-            <element signature="e#2405#2406#0" expanded="true" />
+            <element signature="e#1405#1406#0" expanded="true" />
+            <element signature="e#1448#1449#0" expanded="true" />
+            <element signature="e#3625#3626#0" expanded="true" />
+            <element signature="e#3717#3718#0" expanded="true" />
+            <element signature="e#3756#3757#0" expanded="true" />
+            <element signature="e#3818#3819#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -898,13 +910,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="304">
           <caret line="20" column="36" lean-forward="true" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-8-oracle/javafx-src.zip!/javafx/concurrent/Task.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26448">
-          <caret line="1453" column="19" selection-start-line="1453" selection-start-column="19" selection-end-line="1453" selection-end-column="19" />
         </state>
       </provider>
     </entry>
@@ -1016,14 +1021,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="41" column="80" selection-start-line="41" selection-start-column="80" selection-end-line="41" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/GameEngine/src/PlayerFX.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
@@ -1067,10 +1064,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/game.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="386">
+          <caret line="42" column="36" selection-start-line="42" selection-start-column="36" selection-end-line="42" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-8-oracle/javafx-src.zip!/javafx/concurrent/Task.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="1460" column="44" lean-forward="true" selection-start-line="1460" selection-start-column="44" selection-end-line="1460" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GameEngine/src/PlayerComputer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="12" column="45" lean-forward="true" selection-start-line="12" selection-start-column="45" selection-end-line="12" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#751#752#0" expanded="true" />
+            <element signature="e#829#830#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="205" column="45" selection-start-line="205" selection-start-column="45" selection-end-line="205" selection-end-column="45" />
+        <state relative-caret-position="141">
+          <caret line="350" lean-forward="true" selection-start-line="350" selection-end-line="350" />
           <folding>
             <element signature="method#Controller#0;class#Controller#0" />
             <element signature="method#updateMessage#0;class#Controller#0" />
@@ -1091,30 +1115,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/GameEngine/src/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="102" column="35" lean-forward="true" selection-start-line="102" selection-start-column="35" selection-end-line="102" selection-end-column="35" />
+        <state relative-caret-position="408">
+          <caret line="121" column="33" selection-start-line="121" selection-start-column="33" selection-end-line="121" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#991#992#0" expanded="true" />
             <element signature="e#1039#1040#0" expanded="true" />
             <element signature="e#1060#1061#0" expanded="true" />
             <element signature="e#1097#1098#0" expanded="true" />
-            <element signature="e#2109#2110#0" expanded="true" />
-            <element signature="e#2201#2202#0" expanded="true" />
-            <element signature="e#2343#2344#0" expanded="true" />
-            <element signature="e#2405#2406#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GameEngine/src/PlayerComputer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="14" column="26" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#751#752#0" expanded="true" />
-            <element signature="e#829#830#0" expanded="true" />
+            <element signature="e#1405#1406#0" expanded="true" />
+            <element signature="e#1448#1449#0" expanded="true" />
+            <element signature="e#3625#3626#0" expanded="true" />
+            <element signature="e#3717#3718#0" expanded="true" />
+            <element signature="e#3756#3757#0" expanded="true" />
+            <element signature="e#3818#3819#0" expanded="true" />
           </folding>
         </state>
       </provider>

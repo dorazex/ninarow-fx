@@ -1,3 +1,5 @@
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.InvalidationListener;
 import javafx.beans.value.ObservableStringValue;
 import javafx.beans.value.ObservableValue;
@@ -17,6 +19,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.util.converter.NumberStringConverter;
 
 
@@ -59,6 +62,8 @@ public class Controller {
     private HBox boardTopHBox;
     @FXML
     private HBox boardBottomHBox;
+    @FXML
+    private Label durationLabel;
 
     private Game game;
     private Boolean isGameEnded;
@@ -191,6 +196,7 @@ public class Controller {
     }
 
     private void createGame(HashMap<String, Object> parametersMap){
+
         this.configMap = parametersMap;
 
         String variant = (String) parametersMap.get("variant");
@@ -335,6 +341,14 @@ public class Controller {
         } else{
             this.game.start(this.getPlayers());
             updateMessage("Game started successfully", false);
+//            this.durationLabel.textProperty().bind(game.durationProperty());
+            KeyFrame update = new KeyFrame(Duration.seconds(0.5), event -> {
+                durationLabel.setText(game.getDurationString());
+            });
+            Timeline tl = new Timeline(update);
+            tl.setCycleCount(Timeline.INDEFINITE);
+            tl.play();
+
             System.out.println(this.game.toString());
             System.out.println(this.game.getBoard().toString());
             this.makeComputerTurns();

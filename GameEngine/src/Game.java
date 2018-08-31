@@ -1,5 +1,9 @@
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.EventHandler;
 import sun.java2d.pipe.SpanShapeRenderer;
 
 import java.util.ArrayList;
@@ -15,7 +19,8 @@ public class Game {
     private Date startDate;
     private Player winnerPlayer;
     private History history;
-    private SimpleStringProperty stringProperty;
+    private SimpleStringProperty duration;
+    private Date currentDate;
 
     public int getTarget() { return target; }
 
@@ -43,8 +48,12 @@ public class Game {
         return history;
     }
 
-    public SimpleStringProperty stringPropertyProperty() {
-        return stringProperty;
+    public SimpleStringProperty durationProperty() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration.set(duration);
     }
 
     public Game(){};
@@ -55,10 +64,11 @@ public class Game {
         this.isStarted = false;
         this.currentPlayerIndex = 0;
         this.startDate = null;
+        this.currentDate = new Date();
         this.winnerPlayer = null;
         this.history = new History();
-        this.stringProperty = new SimpleStringProperty();
-        this.stringProperty.set("START VALUE");
+        this.duration = new SimpleStringProperty();
+        this.duration.set("00:00");
     }
 
     public Game(int target, Board board){
@@ -69,7 +79,10 @@ public class Game {
         this.startDate = null;
     }
 
-    private String getDurationString(Date currentDate) {
+
+    public String getDurationString() {
+        if (startDate == null) return "00:00";
+        currentDate = new Date();
         long diffInSeconds = (currentDate.getTime() - this.startDate.getTime()) / 1000;
         long seconds = Math.floorMod(diffInSeconds, 60);
         long minutes = Math.floorDiv(diffInSeconds, 60);
@@ -148,7 +161,7 @@ public class Game {
                     this.board.getColumns());
 
             Date currentTime = new Date();
-            String durationString = this.getDurationString(currentTime);
+            String durationString = this.getDurationString();
             String finalString =  String.format(fullFormat,
                     headerLine,
                     this.isStarted.toString(),
@@ -158,7 +171,7 @@ public class Game {
                     this.board,
                     durationString,
                     menu);
-            this.stringProperty.set(finalString);
+//            this.stringProperty.set(finalString);
             return finalString;
         } else {
             String finalString = String.format(shortFormat,
@@ -166,7 +179,7 @@ public class Game {
                     this.target,
                     this.board,
                     menu);
-            this.stringProperty.set(finalString);
+//            this.stringProperty.set(finalString);
             return finalString;
         }
     }
