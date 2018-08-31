@@ -68,6 +68,7 @@ public class Controller {
     private Game game;
     private Boolean isGameEnded;
     ArrayList<Player> players;
+    Timeline durationUpdater;
     private Desktop desktop = Desktop.getDesktop();
     private HashMap<String, Object> configMap;
     private static List<String> colors = Arrays.asList(
@@ -376,6 +377,7 @@ public class Controller {
                 durationLabel.setText(game.getDurationString());
             });
             Timeline tl = new Timeline(update);
+            this.durationUpdater = tl;
             tl.setCycleCount(Timeline.INDEFINITE);
             tl.play();
 
@@ -384,6 +386,28 @@ public class Controller {
             System.out.println(this.game.toString());
             System.out.println(this.game.getBoard().toString());
             this.makeComputerTurns();
+        }
+    }
+
+    private void endGameHandler(){
+        if (this.game == null){
+            updateMessage("No game loaded yet", true);
+        } else if (this.game.getIsStarted() == true){
+            this.durationUpdater.stop();
+            boardGridPane.getColumnConstraints().clear();
+            boardGridPane.getRowConstraints().clear();
+            boardGridPane.setAlignment(Pos.CENTER);
+            boardGridPane.getChildren().clear();
+            durationLabel.setText("00:00");
+            playersDetailsListView.getItems().clear();
+            this.boardTopHBox.getChildren().clear();
+            this.boardBottomHBox.getChildren().clear();
+
+            this.game = null;
+            updateMessage("Game has ended on player request", true);
+
+        } else{
+            updateMessage("Game has not started yet", true);
         }
     }
 
@@ -399,6 +423,12 @@ public class Controller {
         startButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 startHandler();
+            }
+        });
+
+        endGameButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                endGameHandler();
             }
         });
 
