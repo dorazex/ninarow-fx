@@ -2,20 +2,13 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<?import org.controlsfx.control.ListSelectionView?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.collections.FXCollections?>
-<?import java.lang.String?>
-<VBox fx:id="mainVBox"
-      xmlns="http://javafx.com/javafx/8.0.121"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="Controller"
-      VBox.vgrow="SOMETIMES">
+<VBox fx:id="mainVBox" VBox.vgrow="SOMETIMES" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
    <children>
       <HBox fx:id="controlsHBox">
          <children>
@@ -28,34 +21,17 @@
 
        <AnchorPane fx:id="boardAnchor">
            <children>
-               <HBox fx:id="boardTopHBox"
-                     HBox.hgrow="ALWAYS"
-                     AnchorPane.leftAnchor="0.0"
-                     AnchorPane.rightAnchor="0.0"
-                     AnchorPane.topAnchor="0.0"/>
+               <HBox fx:id="boardTopHBox" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS" />
 
-               <GridPane fx:id="boardGridPane"
-                         prefHeight="500.0"
-                         prefWidth="500.0"
-                         AnchorPane.bottomAnchor="25.0"
-                         AnchorPane.leftAnchor="0.0"
-                         AnchorPane.rightAnchor="0.0"
-                         AnchorPane.topAnchor="25.0">
+               <GridPane fx:id="boardGridPane" prefHeight="500.0" prefWidth="500.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
                </GridPane>
 
-               <HBox fx:id="boardBottomHBox"
-                     HBox.hgrow="ALWAYS"
-                     AnchorPane.leftAnchor="0.0"
-                     AnchorPane.rightAnchor="0.0"
-                     AnchorPane.bottomAnchor="0.0"/>
+               <HBox fx:id="boardBottomHBox" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" HBox.hgrow="ALWAYS" />
            </children>
        </AnchorPane>
 
 
-       <VBox fx:id="playersDetailsVbox"
-             minHeight="27"
-             maxHeight="Infinity"
-             VBox.vgrow="ALWAYS">
+       <VBox fx:id="playersDetailsVbox" maxHeight="Infinity" minHeight="27" VBox.vgrow="ALWAYS">
            <children>
                <ListView fx:id="playersDetailsListView">
                </ListView>
@@ -63,11 +39,7 @@
        </VBox>
 
 
-       <Label fx:id="messageLabel"
-              text="Label"
-              minHeight="25"
-              maxHeight="25"
-       />
+       <Label fx:id="messageLabel" maxHeight="25" minHeight="25" text="Label" />
 
    </children>
 </VBox>

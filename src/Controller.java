@@ -17,8 +17,10 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.converter.NumberStringConverter;
 
 
+import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.Desktop;
 import java.util.List;
@@ -60,6 +62,7 @@ public class Controller {
 
     private Game game;
     private Boolean isGameEnded;
+    ArrayList<Player> players;
     private Desktop desktop = Desktop.getDesktop();
     private HashMap<String, Object> configMap;
     private static List<String> colors = Arrays.asList(
@@ -96,7 +99,7 @@ public class Controller {
             TurnRecord turnRecord = ((PlayerFX) currentPlayer).makeTurnFX(game.getBoard(), column);
 
             game.getHistory().pushTurn(turnRecord);
-            ((PlayerFX) currentPlayer).setTurnsCount(((PlayerFX) currentPlayer).getTurnsCount() + 1);
+            ((PlayerFX) currentPlayer).setTurnsCount(currentPlayer.getTurnsCount() + 1);
             System.out.println(game.toString());
             if (game.isEndWithWinner()) {
                 game.setWinnerPlayer(currentPlayer);
@@ -155,7 +158,10 @@ public class Controller {
 
                 @Override
                 public void onUserClick(int column) {
-                    if (!game.getIsStarted()) return;
+                    if (!game.getIsStarted()){
+                        updateMessage("Must start game before making turns", true);
+                        return;
+                    }
                     isGameEnded = makeTurn(column);
                 }
 
@@ -198,39 +204,7 @@ public class Controller {
         ObservableList<Label> items = playersDetailsListView.getItems();
         for (Player player: this.getPlayers()){
             Label playerDetailsLabel = new Label();
-            playerDetailsLabel.textProperty().bind(
-                    new ObservableStringValue() {
-                        @Override
-                        public String get() {
-                            return player.toString();
-                        }
-
-                        @Override
-                        public void addListener(javafx.beans.value.ChangeListener<? super String> listener) {
-
-                        }
-
-                        @Override
-                        public void removeListener(javafx.beans.value.ChangeListener<? super String> listener) {
-
-                        }
-
-                        @Override
-                        public String getValue() {
-                            return player.toString();
-                        }
-
-                        @Override
-                        public void addListener(InvalidationListener listener) {
-
-                        }
-
-                        @Override
-                        public void removeListener(InvalidationListener listener) {
-
-                        }
-                    }
-            );
+            playerDetailsLabel.textProperty().bind(player.detailsProperty());
             playerDetailsLabel.setBackground(
                     new Background(
                             new BackgroundFill(
@@ -241,17 +215,6 @@ public class Controller {
         }
         playersDetailsListView.setPrefHeight(items.size() * 24 + 2);
 
-
-//        this.playersDetailsListView.heightProperty().addListener(new javafx.beans.value.ChangeListener<Number>() {
-//            @Override
-//            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-//                mainVBox.setMaxHeight(newValue.intValue());
-//                mainVBox.setPrefHeight(newValue.intValue());
-//            }
-//        });
-
-
-//        this.playersDetailsListView.itemsProperty().bind();
         initializeBoard(this.game.getBoard().getRows(), this.game.getBoard().getColumns());
     }
 
@@ -315,6 +278,9 @@ public class Controller {
     }
 
     private ArrayList<Player> getPlayers(){
+        if (this.players != null){
+            return this.players;
+        }
         ArrayList<Player> players = new ArrayList<>();
         ArrayList<HashMap<String, String>> playersMap = (ArrayList<HashMap<String, String>>) this.configMap.get("players");
         Integer i = 0;
@@ -344,7 +310,7 @@ public class Controller {
             players.add(player);
             i++;
         }
-
+        this.players = players;
         return players;
     }
 

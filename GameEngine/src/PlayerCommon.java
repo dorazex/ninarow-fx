@@ -1,23 +1,43 @@
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 public abstract class PlayerCommon implements Player {
-    protected Integer turnsCount;
+    private SimpleIntegerProperty turnsCount;
+    private SimpleStringProperty details;
     private Integer id;
     private String name;
     private String discType;
 
     public PlayerCommon(Integer id, String name, String discType){
-        this.turnsCount = 0;
+        this.turnsCount = new SimpleIntegerProperty();
+        this.turnsCount.set(0);
         this.id = id;
         this.name = name;
         this.discType = discType;
+
+        this.details = new SimpleStringProperty();
+        this.details.set(this.toString());
     }
 
     @Override
     public Integer getTurnsCount() {
-        return this.turnsCount;
+        return turnsCount.get();
     }
 
-    public void setTurnsCount(Integer turnsCount) {
-        this.turnsCount = turnsCount;
+    @Override
+    public SimpleIntegerProperty turnsCountProperty() {
+        return turnsCount;
+    }
+
+    @Override
+    public SimpleStringProperty detailsProperty() {
+        return details;
+    }
+
+    public void setTurnsCount(Integer turns) {
+        turnsCount.set(turns);
+        this.details.set(this.toString());
     }
 
     @Override
@@ -37,6 +57,6 @@ public abstract class PlayerCommon implements Player {
 
     @Override
     public String toString() {
-        return String.format("#%d: \tdisc=%s, \t\tturns=%d\n", this.id, this.discType, this.turnsCount);
+        return String.format("#%d: \tdisc=%s, \t\tturns=%d\n", this.id, this.discType, this.getTurnsCount());
     }
 }

@@ -1,4 +1,8 @@
+import javafx.concurrent.Task;
+
 import java.util.Random;
+
+import static java.lang.Thread.sleep;
 
 public class PlayerComputer extends PlayerCommon {
     public PlayerComputer(Integer id, String name, String discType){
@@ -7,6 +11,13 @@ public class PlayerComputer extends PlayerCommon {
 
     @Override
     public TurnRecord makeTurn(Board board) {
+        try {
+            Thread.sleep(500);   // Delay thread
+        } catch (Exception e) {
+            // Do nothing with errors
+        }
+
+
         Integer chosenColumn = new Random().nextInt(board.getColumns());
         TurnRecord turnRecord = board.putDisc(this, chosenColumn);
         Integer tries = 1;
@@ -15,7 +26,7 @@ public class PlayerComputer extends PlayerCommon {
             turnRecord = board.putDisc(this, chosenColumn);
             tries += 1;
         }
-        this.turnsCount += 1;
+        this.setTurnsCount(this.getTurnsCount() + 1);
         return turnRecord;
     }
 

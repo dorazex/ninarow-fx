@@ -28,7 +28,7 @@ public class PlayerConsole extends PlayerCommon {
             System.out.println("Chosen column is full. Please play again...");
             return this.makeTurn(board);
         }
-        this.turnsCount += 1;
+        this.setTurnsCount(this.getTurnsCount() + 1);
         return turnRecord;
     }
 }
