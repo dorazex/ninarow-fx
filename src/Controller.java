@@ -117,6 +117,38 @@ public class Controller {
         return game.getBoard().isFull();
     }
 
+    public Boolean getGameEnded() {
+        return isGameEnded;
+    }
+
+    public void setGameEnded(Boolean gameEnded) {
+        if (!gameEnded){
+            isGameEnded = false;
+        } else {
+            Player winner = this.game.getWinnerPlayer();
+            if (winner != null) {
+                updateMessage("THE WINNER IS: " + winner.getId() + "!", false);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("End");
+                alert.setHeaderText("The game ended with a winner!");
+                alert.setContentText("... AND THE WINNER IS: " + winner.getName());
+                alert.showAndWait();
+
+                this.endGameHandler();
+            } else {
+                updateMessage("GAME ENDED IN A TIE!", false);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("End");
+                alert.setHeaderText("The game ended in a tie!");
+                alert.setContentText("No winners this time");
+                alert.showAndWait();
+
+                this.endGameHandler();
+            }
+            isGameEnded = true;
+        }
+    }
+
     private void initializeBoard(Integer rows, Integer columns){
 
         boardGridPane.getColumnConstraints().clear();
@@ -168,8 +200,10 @@ public class Controller {
                         updateMessage("Must start game before making turns", true);
                         return;
                     }
-                    isGameEnded = makeTurn(column);
-                    updateCurrentPlayerIndication();
+                    setGameEnded(makeTurn(column));
+                    if (!isGameEnded) {
+                        updateCurrentPlayerIndication();
+                    }
                 }
 
             });
@@ -198,7 +232,7 @@ public class Controller {
     }
 
     private void createGame(HashMap<String, Object> parametersMap){
-
+        setGameEnded(false);
         this.configMap = parametersMap;
 
         String variant = (String) parametersMap.get("variant");
@@ -325,12 +359,14 @@ public class Controller {
     }
 
     private void makeComputerTurns(){
-        this.isGameEnded = false;
+        setGameEnded(false);
         while (!this.isGameEnded){
             Player currentPlayer = game.getPlayers().get(game.getCurrentPlayerIndex());
             if (!currentPlayer.getClass().equals(PlayerFX.class)){
-                this.isGameEnded = this.game.makeTurn();
-                updateCurrentPlayerIndication();
+                setGameEnded(this.game.makeTurn());
+                if (!isGameEnded) {
+                    updateCurrentPlayerIndication();
+                }
                 System.out.println(game.toString());
             }else{
                 break;
@@ -404,7 +440,7 @@ public class Controller {
             this.boardBottomHBox.getChildren().clear();
 
             this.game = null;
-            updateMessage("Game has ended on player request", true);
+            updateMessage("Game has ended", true);
 
         } else{
             updateMessage("Game has not started yet", true);

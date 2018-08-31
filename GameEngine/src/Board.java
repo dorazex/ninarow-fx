@@ -60,9 +60,9 @@ public class Board {
         return count;
     }
 
-    private Boolean isTargetInSequence(String sequence, Integer target){
-        for (int i = 1; i < this.playersCount + 1; i++) {
-            if (sequence.matches(String.format(".*%d{%d}.*", i, target))) {
+    private Boolean isTargetInSequence(ArrayList<Player> players, String sequence, Integer target){
+        for (Player player: players){
+            if (sequence.matches(String.format(".*(%d){%d}.*", player.getId(), target))) {
                 return true;
             }
         }
@@ -73,14 +73,14 @@ public class Board {
         return this.cells.get(column).get(row);
     }
 
-    public Boolean isTargetReached(Integer target){
+    public Boolean isTargetReached(ArrayList<Player> players, Integer target){
         String sequenceToCheck = "";
         for (int i = 0; i < this.rows; i++) {
             sequenceToCheck = "";
             for (ArrayList<Integer> column: this.cells){
                 sequenceToCheck += column.get(i);
             }
-            if (this.isTargetInSequence(sequenceToCheck, target)) return true;
+            if (this.isTargetInSequence(players, sequenceToCheck, target)) return true;
         }
 
         for (ArrayList<Integer> column: this.cells){
@@ -88,7 +88,7 @@ public class Board {
             for (Integer cellContent: column){
                 sequenceToCheck += String.format("%d", cellContent);
             }
-            if (this.isTargetInSequence(sequenceToCheck, target)) return true;
+            if (this.isTargetInSequence(players, sequenceToCheck, target)) return true;
         }
 
         String boardAsLongString = "";
@@ -103,12 +103,12 @@ public class Board {
             for (int j = i; j < boardAsLongString.length(); j+=target+1) {
                 sequenceToCheck += boardAsLongString.charAt(j);
             }
-            if (this.isTargetInSequence(sequenceToCheck, target)) return true;
+            if (this.isTargetInSequence(players, sequenceToCheck, target)) return true;
             sequenceToCheck = "";
             for (int j = i; j < boardAsLongString.length(); j+=target-1) {
                 sequenceToCheck += boardAsLongString.charAt(j);
             }
-            if (this.isTargetInSequence(sequenceToCheck, target)) return true;
+            if (this.isTargetInSequence(players, sequenceToCheck, target)) return true;
         }
 
         return false;

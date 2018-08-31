@@ -98,7 +98,7 @@ public class Game {
     }
 
     public Boolean isEndWithWinner(){
-        return this.board.isTargetReached(this.target);
+        return this.board.isTargetReached(players, this.target);
     }
 
     public void start(ArrayList<Player> players){
