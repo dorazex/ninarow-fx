@@ -122,14 +122,21 @@ public class Controller {
             for (Integer cellContent: column){
                 y++;
                 Pane pane = getCellPaneFromGridPane(x, y);
-                Circle circle = new Circle(8);
+                AnchorPane anchor = new AnchorPane();
+                Circle circle = new Circle();
                 Paint color = getColorOfPlayer(cellContent);
                 if (color!=null){
                     circle.setFill(color);
                 }
                 if (pane == null) continue;
+                circle.radiusProperty().bind(pane.widthProperty().divide(2));
                 pane.getChildren().clear();
-                pane.getChildren().add(circle);
+                anchor.getChildren().add(circle);
+                AnchorPane.setTopAnchor(circle, 0.0);
+                AnchorPane.setLeftAnchor(circle, 0.0);
+                AnchorPane.setBottomAnchor(circle, 0.0);
+                AnchorPane.setRightAnchor(circle, 0.0);
+                pane.getChildren().add(anchor);
             }
         }
     }
