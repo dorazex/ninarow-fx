@@ -123,19 +123,22 @@ public class Controller {
                 y++;
                 Pane pane = getCellPaneFromGridPane(x, y);
                 AnchorPane anchor = new AnchorPane();
-                Circle circle = new Circle();
+                Rectangle rectangle = new Rectangle();
                 Paint color = getColorOfPlayer(cellContent);
                 if (color!=null){
-                    circle.setFill(color);
+                    rectangle.setFill(color);
                 }
                 if (pane == null) continue;
-                circle.radiusProperty().bind(pane.widthProperty().divide(2));
+                rectangle.arcHeightProperty().bind(pane.heightProperty().divide(5));
+                rectangle.arcWidthProperty().bind(pane.widthProperty().divide(5));
+                rectangle.widthProperty().bind(pane.widthProperty().divide(1.1));
+                rectangle.heightProperty().bind(pane.heightProperty().divide(1.1));
                 pane.getChildren().clear();
-                anchor.getChildren().add(circle);
-                AnchorPane.setTopAnchor(circle, 0.0);
-                AnchorPane.setLeftAnchor(circle, 0.0);
-                AnchorPane.setBottomAnchor(circle, 0.0);
-                AnchorPane.setRightAnchor(circle, 0.0);
+                anchor.getChildren().add(rectangle);
+                AnchorPane.setTopAnchor(rectangle, (pane.getHeight() * (1.1-1)) / 2);
+                AnchorPane.setLeftAnchor(rectangle, (pane.getWidth() * (1.1-1)) / 2);
+                AnchorPane.setBottomAnchor(rectangle, (pane.getHeight() * (1.1-1)) / 2);
+                AnchorPane.setRightAnchor(rectangle, (pane.getWidth() * (1.1-1)) / 2);
                 pane.getChildren().add(anchor);
             }
         }
