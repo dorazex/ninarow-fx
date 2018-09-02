@@ -16,7 +16,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library" exported="">
+    <orderEntry type="module-library">
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/external/cssfx/cssfx-1.0.0.jar!/" />
@@ -25,9 +25,9 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module" module-name="GameEngine" exported="" />
-    <orderEntry type="module" module-name="XmlLoader" exported="" />
-    <orderEntry type="module-library" exported="">
+    <orderEntry type="module" module-name="GameEngine" />
+    <orderEntry type="module" module-name="XmlLoader" />
+    <orderEntry type="module-library">
       <library>
         <CLASSES>
           <root url="jar://$USER_HOME$/Downloads/scenicView.jar!/" />

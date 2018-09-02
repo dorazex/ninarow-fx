@@ -12,6 +12,8 @@
       </options>
     </properties>
     <root id="root">
+      <element id="module-output" name="GameEngine" />
+      <element id="module-output" name="XmlLoader" />
       <element id="archive" name="ninarow-fx.jar">
         <element id="module-output" name="ninarow-fx" />
       </element>

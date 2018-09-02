@@ -20,7 +20,7 @@ public class Main extends Application {
 //        primaryStage.setHeight(300);
 //        primaryStage.setWidth(300);
 
-        ScenicView.show(scene);
+//        ScenicView.show(scene);
         primaryStage.show();
 
     }

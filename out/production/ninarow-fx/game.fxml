@@ -16,7 +16,7 @@
    <children>
       <HBox fx:id="controlsHBox" VBox.vgrow="NEVER">
          <children>
-            <Button fx:id="loadButton" mnemonicParsing="false" text="Load" />
+            <Button fx:id="loadButton" mnemonicParsing="false" text="Load"/>
             <Button fx:id="startButton" mnemonicParsing="false" text="Start" />
             <Button fx:id="endGameButton" mnemonicParsing="false" text="Exit" />
          </children>
@@ -26,7 +26,7 @@
            <children>
                <HBox fx:id="boardTopHBox" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS" />
 
-               <GridPane fx:id="boardGridPane" prefHeight="500.0" prefWidth="500.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0" VBox.vgrow="NEVER">
+               <GridPane fx:id="boardGridPane" prefHeight="500.0" prefWidth="500.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
                </GridPane>
 
                <HBox fx:id="boardBottomHBox" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" HBox.hgrow="ALWAYS" />
