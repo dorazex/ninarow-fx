@@ -500,7 +500,7 @@ public class Controller {
             updateMessage("Game started successfully", false);
 //            this.durationLabel.textProperty().bind(game.durationProperty());
             KeyFrame update = new KeyFrame(Duration.seconds(0.5), event -> {
-                durationLabel.setText(game.getDurationString());
+                durationLabel.setText(String.format("Target: %d\t|  Duration: %s", game.getTarget(), game.getDurationString()));
             });
             Timeline tl = new Timeline(update);
             this.durationUpdater = tl;

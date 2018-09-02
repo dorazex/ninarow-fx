@@ -11,7 +11,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("game.fxml"));
         Scene scene = new Scene(root);
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("N-in-a-Row");
         primaryStage.setScene(scene);
 
 //        primaryStage.minWidthProperty().bind(scene.heightProperty().multiply(1));
@@ -20,8 +20,7 @@ public class Main extends Application {
 //        primaryStage.setHeight(300);
 //        primaryStage.setWidth(300);
 
-//        ScenicView.show(scene);
-        primaryStage.setHeight(800);
+        ScenicView.show(scene);
         primaryStage.show();
 
     }

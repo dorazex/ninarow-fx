@@ -8,17 +8,21 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="mainVBox" VBox.vgrow="SOMETIMES" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<VBox fx:id="mainVBox"
+      VBox.vgrow="SOMETIMES"
+      xmlns="http://javafx.com/javafx/8.0.121"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="Controller">
    <children>
-      <HBox fx:id="controlsHBox">
+      <HBox fx:id="controlsHBox" VBox.vgrow="NEVER">
          <children>
-            <Button fx:id="loadButton" mnemonicParsing="false" text="Load" />
+            <Button fx:id="loadButton" mnemonicParsing="false" text="Load"/>
             <Button fx:id="startButton" mnemonicParsing="false" text="Start" />
             <Button fx:id="endGameButton" mnemonicParsing="false" text="Exit" />
          </children>
       </HBox>
 
-       <AnchorPane fx:id="boardAnchor">
+       <AnchorPane fx:id="boardAnchor" VBox.vgrow="NEVER">
            <children>
                <HBox fx:id="boardTopHBox" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS" />
 
@@ -30,7 +34,7 @@
        </AnchorPane>
 
 
-       <VBox fx:id="playersDetailsVbox" maxHeight="Infinity" minHeight="27" VBox.vgrow="ALWAYS">
+       <VBox fx:id="playersDetailsVbox" maxHeight="Infinity" minHeight="27" VBox.vgrow="SOMETIMES">
            <children>
                <ListView fx:id="playersDetailsListView">
                </ListView>
