@@ -46,6 +46,10 @@ public class Board {
         return !this.getAvailableIndexInColumn(column).equals(-1);
     }
 
+    private Boolean canPopOut(Integer column, Player player){
+        return this.cells.get(column).get(this.cells.size() - 1).equals(player.getId());
+    }
+
     private Integer getAvailableIndexInColumn(int column){
         return this.cells.get(column).lastIndexOf(0);
     }
@@ -130,7 +134,20 @@ public class Board {
         TurnRecord turnRecord = null;
         if (this.canInsert(column)){
             this.cells.get(column).set(this.getAvailableIndexInColumn(column), player.getId());
-            turnRecord = new TurnRecord(player, column);
+            turnRecord = new TurnRecord(player, column, false);
+        }
+        return turnRecord;
+    }
+
+    public TurnRecord popOut(Player player, int columnNumber){
+        TurnRecord turnRecord = null;
+        if (this.canPopOut(columnNumber, player)){
+            ArrayList<Integer> column = this.cells.get(columnNumber);
+            for (int i = column.size() - 1; i > 0; i--) {
+                column.set(i,column.get(i-1));
+            }
+            column.set(0,0);
+            turnRecord = new TurnRecord(player, columnNumber, true);
         }
         return turnRecord;
     }

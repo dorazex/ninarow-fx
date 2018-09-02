@@ -18,9 +18,13 @@ public class PlayerFX extends PlayerCommon {
         throw new NotImplementedException();
     }
 
-    public TurnRecord makeTurnFX(Board board, Integer column) {
-
-        TurnRecord turnRecord = board.putDisc(this, column);
+    public TurnRecord makeTurnFX(Board board, Integer column, Boolean isBottom) {
+        TurnRecord turnRecord;
+        if (!isBottom) {
+            turnRecord = board.putDisc(this, column);
+        } else {
+            turnRecord = board.popOut(this, column);
+        }
         return turnRecord;
     }
 

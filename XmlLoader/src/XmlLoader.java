@@ -16,7 +16,7 @@ import java.util.HashMap;
 
 public class XmlLoader {
 
-    public static HashMap<String, Object> getGameBasicInitParameters(String filePath) throws ConfigXmlException {
+    public static HashMap<String, Object> getGameInitParameters(String filePath) throws ConfigXmlException {
 
         if (!filePath.toLowerCase().endsWith(".xml")) throw new ConfigXmlException("File is not an XML file");
 
@@ -88,7 +88,9 @@ public class XmlLoader {
                 }
             }
 
-
+            if (!variant.equals("Regular") && !variant.equals("Circular") && !variant.equals("Popout")){
+                throw new ConfigXmlException("Game variant is not supported");
+            }
             parametersMap.put("variant", variant);
             parametersMap.put("players", playersMap);
             try {

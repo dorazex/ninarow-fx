@@ -1,6 +1,7 @@
 public class TurnRecord {
     private Player player;
     private Integer column;
+    private Boolean isPopOut;
 
     public Player getPlayer() {
         return player;
@@ -10,14 +11,22 @@ public class TurnRecord {
         return column;
     }
 
-    public TurnRecord(Player player, Integer column){
+    public Boolean getPopOut() { return isPopOut; }
+
+    public TurnRecord(Player player, Integer column, Boolean isPopOut){
         this.player = player;
         this.column = column;
+        this.isPopOut = isPopOut;
     }
 
     @Override
     public String toString() {
-        return String.format("Player <%s> have put a disc of type <%s> at column <%d>",
+        if (!this.isPopOut)
+            return String.format("Player <%s> have put a disc of type <%s> at column <%d>",
+                    this.player.getId(),
+                    this.player.getDiscType(),
+                    this.column);
+        return String.format("Player <%s> have popped out a disc of type <%s> at column <%d>",
                 this.player.getId(),
                 this.player.getDiscType(),
                 this.column);

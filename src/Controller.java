@@ -1,8 +1,5 @@
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.InvalidationListener;
-import javafx.beans.value.ObservableStringValue;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -17,27 +14,18 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javafx.util.converter.NumberStringConverter;
 
 
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.Desktop;
 import java.util.List;
 import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Controller {
     @FXML
@@ -52,8 +40,8 @@ public class Controller {
     private Button loadButton;
     @FXML
     private Button startButton;
-    @FXML
-    private Button historyButton;
+//    @FXML
+//    private Button historyButton;
     @FXML
     private Button endGameButton;
     @FXML
@@ -69,6 +57,7 @@ public class Controller {
 
     private Game game;
     private Boolean isGameEnded;
+    private String variant;
     ArrayList<Player> players;
     Timeline durationUpdater;
     private Desktop desktop = Desktop.getDesktop();
@@ -158,19 +147,22 @@ public class Controller {
         messageLabel.setMaxHeight(25);
     }
 
-    public Boolean makeTurn(Integer column){
+    public Boolean makeTurn(Integer column, Boolean isPopOut){
         Player currentPlayer = game.getPlayers().get(game.getCurrentPlayerIndex());
         if (currentPlayer.getClass().equals(PlayerFX.class)) {
-            TurnRecord turnRecord = ((PlayerFX) currentPlayer).makeTurnFX(game.getBoard(), column);
-
+            TurnRecord turnRecord = ((PlayerFX) currentPlayer).makeTurnFX(game.getBoard(), column, isPopOut);
+            if (turnRecord == null){
+                updateMessage("Illegal move", true);
+                return false;
+            }
             game.getHistory().pushTurn(turnRecord);
             ((PlayerFX) currentPlayer).setTurnsCount(currentPlayer.getTurnsCount() + 1);
-            System.out.println(game.toString());
             if (game.isEndWithWinner()) {
                 game.setWinnerPlayer(currentPlayer);
                 return true;
             }
             game.advanceToNextPlayer();
+            renderBoard();
             makeComputerTurns();
         }
         return game.getBoard().isFull();
@@ -231,27 +223,25 @@ public class Controller {
                 HPos.CENTER, true);
         columnConstraints.setPercentWidth(100);
 
+        boardTopHBox.getChildren().clear();
+        boardBottomHBox.getChildren().clear();
         for (int x = 0; x < columns; x++) {
             boardGridPane.getColumnConstraints().add(columnConstraints);
             boardGridPane.getRowConstraints().add(rowConstraints);
 
-            Button topColumnButton = new Button("X");
+            Button topColumnButton = new Button("V");
             topColumnButton.setId(String.format("boardTopButton%d", x));
-            Button bottomColumnButton = new Button("X");
-            bottomColumnButton.setId(String.format("boardBottomButton%d", x));
             topColumnButton.setMaxWidth(Double.MAX_VALUE);
-            bottomColumnButton.setMaxWidth(Double.MAX_VALUE);
             HBox.setHgrow(topColumnButton, Priority.ALWAYS);
-            HBox.setHgrow(bottomColumnButton, Priority.ALWAYS);
             this.boardTopHBox.getChildren().add(topColumnButton);
-            this.boardBottomHBox.getChildren().add(bottomColumnButton);
+
 
             final int columnIndex = x;
             topColumnButton.setOnAction((ActionEvent event) -> {
                 topColumnButton.fireEvent(new UserTurnClickEvent(columnIndex));
             });
 
-            topColumnButton.addEventHandler(CustomEvent.CUSTOM_EVENT_TYPE, new UserTurnClickEventHandler() {
+            UserTurnClickEventHandler eventHandlerTop = new UserTurnClickEventHandler() {
 
                 @Override
                 public void onUserClick(int column) {
@@ -259,13 +249,43 @@ public class Controller {
                         updateMessage("Must start game before making turns", true);
                         return;
                     }
-                    setGameEnded(makeTurn(column));
+                    setGameEnded(makeTurn(column, false));
                     if (!isGameEnded) {
                         updateCurrentPlayerIndication();
                     }
                 }
 
-            });
+            };
+            topColumnButton.addEventHandler(CustomEvent.CUSTOM_EVENT_TYPE, eventHandlerTop);
+
+            if (this.variant.equals("Popout")){
+                Button bottomColumnButton = new Button("^");
+                bottomColumnButton.setId(String.format("boardBottomButton%d", x));
+                bottomColumnButton.setMaxWidth(Double.MAX_VALUE);
+                HBox.setHgrow(bottomColumnButton, Priority.ALWAYS);
+                this.boardBottomHBox.getChildren().add(bottomColumnButton);
+
+                bottomColumnButton.setOnAction((ActionEvent event) -> {
+                    bottomColumnButton.fireEvent(new UserTurnClickEvent(columnIndex));
+                });
+
+                UserTurnClickEventHandler eventHandlerBottom = new UserTurnClickEventHandler() {
+
+                    @Override
+                    public void onUserClick(int column) {
+                        if (!game.getIsStarted()){
+                            updateMessage("Must start game before making turns", true);
+                            return;
+                        }
+                        setGameEnded(makeTurn(column, true));
+                        if (!isGameEnded) {
+                            updateCurrentPlayerIndication();
+                        }
+                    }
+
+                };
+                bottomColumnButton.addEventHandler(CustomEvent.CUSTOM_EVENT_TYPE, eventHandlerBottom);
+            }
 
             for (int y = 0; y < rows; y++) {
                 Pane cellPane = new Pane();
@@ -294,7 +314,7 @@ public class Controller {
         setGameEnded(false);
         this.configMap = parametersMap;
 
-        String variant = (String) parametersMap.get("variant");
+        this.variant = (String) parametersMap.get("variant");
         Integer target = (Integer) parametersMap.get("target");
         Integer rows = (Integer) parametersMap.get("rows");
         Integer columns = (Integer) parametersMap.get("columns");
@@ -330,7 +350,7 @@ public class Controller {
                 HashMap<String, Object> parametersMap = null;
                 ObservableList<HashMap<String, Object>> results = FXCollections.observableArrayList();
                 try {
-                    parametersMap = XmlLoader.getGameBasicInitParameters(configFilePath);
+                    parametersMap = XmlLoader.getGameInitParameters(configFilePath);
                     results.add(parametersMap);
                     updateMessage("XML Loaded successfully");
                     return results;
@@ -423,10 +443,10 @@ public class Controller {
             Player currentPlayer = game.getPlayers().get(game.getCurrentPlayerIndex());
             if (!currentPlayer.getClass().equals(PlayerFX.class)){
                 setGameEnded(this.game.makeTurn());
+                renderBoard();
                 if (!isGameEnded) {
                     updateCurrentPlayerIndication();
                 }
-                System.out.println(game.toString());
             }else{
                 break;
             }
@@ -479,8 +499,6 @@ public class Controller {
 
             updateCurrentPlayerIndication();
 
-            System.out.println(this.game.toString());
-            System.out.println(this.game.getBoard().toString());
             this.makeComputerTurns();
         }
     }
@@ -488,7 +506,7 @@ public class Controller {
     private void endGameHandler(){
         if (this.game == null){
             updateMessage("No game loaded yet", true);
-        } else if (this.game.getIsStarted() == true){
+        } else if (this.game.getIsStarted()){
             this.durationUpdater.stop();
             boardGridPane.getColumnConstraints().clear();
             boardGridPane.getRowConstraints().clear();
