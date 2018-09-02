@@ -38,8 +38,8 @@
        </VBox>
 
 
-       <Label fx:id="messageLabel" maxHeight="25" minHeight="25" text="Label" />
-       <Label fx:id="durationLabel" maxHeight="25" minHeight="25" text="Label" />
+       <Label fx:id="messageLabel" maxHeight="25" minHeight="25" text="" />
+       <Label fx:id="durationLabel" maxHeight="25" minHeight="25" text="" />
 
    </children>
 </VBox>

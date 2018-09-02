@@ -68,6 +68,6 @@ public abstract class PlayerCommon implements Player {
 
     @Override
     public String toString() {
-        return String.format("#%d: \tdisc=%s, \t\tturns=%d\n", this.id, this.discType, this.getTurnsCount());
+        return String.format("%s (#%d): \tdisc=%s, \t\tturns=%d\n", this.name, this.id, this.discType, this.getTurnsCount());
     }
 }

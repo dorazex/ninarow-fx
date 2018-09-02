@@ -21,6 +21,7 @@ public class Game {
     private History history;
     private SimpleStringProperty duration;
     private Date currentDate;
+    private String variant;
 
     public int getTarget() { return target; }
 
@@ -56,9 +57,11 @@ public class Game {
         this.duration.set(duration);
     }
 
+    public String getVariant() { return variant; }
+
     public Game(){};
 
-    public Game(int target, int rows, int columns){
+    public Game(int target, int rows, int columns, String variant){
         this.target = target;
         this.board = new Board(rows, columns);
         this.isStarted = false;
@@ -69,6 +72,7 @@ public class Game {
         this.history = new History();
         this.duration = new SimpleStringProperty();
         this.duration.set("00:00");
+        this.variant = variant;
     }
 
     public Game(int target, Board board){
@@ -98,7 +102,7 @@ public class Game {
     }
 
     public Boolean isEndWithWinner(){
-        return this.board.isTargetReached(players, this.target);
+        return this.board.isTargetReached(players, this.target, this.variant);
     }
 
     public void start(ArrayList<Player> players){

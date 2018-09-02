@@ -147,6 +147,12 @@ public class Controller {
         messageLabel.setMaxHeight(25);
     }
 
+    private Player getPreviousPlayer(){
+        Integer previousIndex = game.getCurrentPlayerIndex() - 1;
+        if (previousIndex<0) previousIndex = game.getPlayers().size() - 1;
+        return game.getPlayers().get(previousIndex);
+    }
+
     public Boolean makeTurn(Integer column, Boolean isPopOut){
         Player currentPlayer = game.getPlayers().get(game.getCurrentPlayerIndex());
         if (currentPlayer.getClass().equals(PlayerFX.class)) {
@@ -158,7 +164,11 @@ public class Controller {
             game.getHistory().pushTurn(turnRecord);
             ((PlayerFX) currentPlayer).setTurnsCount(currentPlayer.getTurnsCount() + 1);
             if (game.isEndWithWinner()) {
-                game.setWinnerPlayer(currentPlayer);
+                if (isPopOut){
+                    game.setWinnerPlayer(getPreviousPlayer());
+                } else{
+                    game.setWinnerPlayer(currentPlayer);
+                }
                 return true;
             }
             game.advanceToNextPlayer();
@@ -319,7 +329,7 @@ public class Controller {
         Integer rows = (Integer) parametersMap.get("rows");
         Integer columns = (Integer) parametersMap.get("columns");
 
-        this.game = new Game(target, rows, columns);
+        this.game = new Game(target, rows, columns, this.variant);
 
         playersDetailsListView.getItems().clear();
         ObservableList<Label> items = playersDetailsListView.getItems();

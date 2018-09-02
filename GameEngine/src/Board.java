@@ -47,7 +47,7 @@ public class Board {
     }
 
     private Boolean canPopOut(Integer column, Player player){
-        return this.cells.get(column).get(this.cells.size() - 1).equals(player.getId());
+        return this.cells.get(column).get(this.cells.get(column).size() - 1).equals(player.getId());
     }
 
     private Integer getAvailableIndexInColumn(int column){
@@ -66,7 +66,7 @@ public class Board {
 
     private Boolean isTargetInSequence(ArrayList<Player> players, String sequence, Integer target){
         for (Player player: players){
-            if (sequence.matches(String.format(".*(%d){%d}.*", player.getId(), target))) {
+            if (sequence.matches(String.format(".*%s{%d}.*", this.playersDiscTypeMap.get(player.getId()), target))) {
                 return true;
             }
         }
@@ -77,20 +77,23 @@ public class Board {
         return this.cells.get(column).get(row);
     }
 
-    public Boolean isTargetReached(ArrayList<Player> players, Integer target){
+
+    public Boolean isTargetReachedRegular(ArrayList<Player> players, Integer target){
+        // check row
         String sequenceToCheck = "";
         for (int i = 0; i < this.rows; i++) {
             sequenceToCheck = "";
             for (ArrayList<Integer> column: this.cells){
-                sequenceToCheck += column.get(i);
+                sequenceToCheck += this.playersDiscTypeMap.get(column.get(i));
             }
             if (this.isTargetInSequence(players, sequenceToCheck, target)) return true;
         }
 
+        // check column
         for (ArrayList<Integer> column: this.cells){
             sequenceToCheck = "";
             for (Integer cellContent: column){
-                sequenceToCheck += String.format("%d", cellContent);
+                sequenceToCheck += this.playersDiscTypeMap.get(cellContent);
             }
             if (this.isTargetInSequence(players, sequenceToCheck, target)) return true;
         }
@@ -98,18 +101,18 @@ public class Board {
         String boardAsLongString = "";
         for (int i = 0; i < this.rows; i++) {
             for (ArrayList<Integer> column: this.cells){
-                boardAsLongString += column.get(i);
+                boardAsLongString += this.playersDiscTypeMap.get(column.get(i));
             }
         }
 
         for (int i = 0; i < boardAsLongString.length(); i++) {
             sequenceToCheck = "";
-            for (int j = i; j < boardAsLongString.length(); j+=target+1) {
+            for (int j = i; j < boardAsLongString.length(); j+=this.columns+1) {
                 sequenceToCheck += boardAsLongString.charAt(j);
             }
             if (this.isTargetInSequence(players, sequenceToCheck, target)) return true;
             sequenceToCheck = "";
-            for (int j = i; j < boardAsLongString.length(); j+=target-1) {
+            for (int j = i; j < boardAsLongString.length(); j+=this.columns-1) {
                 sequenceToCheck += boardAsLongString.charAt(j);
             }
             if (this.isTargetInSequence(players, sequenceToCheck, target)) return true;
@@ -118,17 +121,71 @@ public class Board {
         return false;
     }
 
+    public Boolean isTargetReachedCircular(ArrayList<Player> players, Integer target){
+        String sequenceToCheck = "";
+        for (int i = 0; i < this.rows; i++) {
+            sequenceToCheck = "";
+            for (ArrayList<Integer> column: this.cells){
+                sequenceToCheck += this.playersDiscTypeMap.get(column.get(i));
+            }
+            sequenceToCheck = sequenceToCheck + sequenceToCheck;
+            if (this.isTargetInSequence(players, sequenceToCheck, target)) return true;
+        }
+
+        for (ArrayList<Integer> column: this.cells){
+            sequenceToCheck = "";
+            for (Integer cellContent: column){
+                sequenceToCheck += this.playersDiscTypeMap.get(cellContent);
+            }
+            sequenceToCheck = sequenceToCheck + sequenceToCheck;
+            if (this.isTargetInSequence(players, sequenceToCheck, target)) return true;
+        }
+
+        String boardAsLongString = "";
+        for (int i = 0; i < this.rows; i++) {
+            for (ArrayList<Integer> column: this.cells){
+                boardAsLongString += this.playersDiscTypeMap.get(column.get(i));
+            }
+        }
+
+        for (int i = 0; i < boardAsLongString.length(); i++) {
+            sequenceToCheck = "";
+            for (int j = i; j < boardAsLongString.length(); j+=this.columns+1) {
+                sequenceToCheck += boardAsLongString.charAt(j);
+            }
+            if (this.isTargetInSequence(players, sequenceToCheck, target)) return true;
+            sequenceToCheck = "";
+            for (int j = i; j < boardAsLongString.length(); j+=this.columns-1) {
+                sequenceToCheck += boardAsLongString.charAt(j);
+            }
+            if (this.isTargetInSequence(players, sequenceToCheck, target)) return true;
+        }
+
+        return false;
+    }
+
+    public Boolean isTargetReached(ArrayList<Player> players, Integer target, String variant){
+        if (variant.equals("Circular")) return isTargetReachedCircular(players, target);
+        return isTargetReachedRegular(players, target);
+    }
+
     public Boolean isFull(){
         return this.countAvailableCells().equals(0);
     }
 
     public void addPlayers(ArrayList<Player> players){
+        int i = 0;
         for (Player player: players){
-            String lastCharOfDiscType = Character.toString(player.getDiscType().charAt(player.getDiscType().length() - 1));
-            this.playersDiscTypeMap.put(player.getId(), lastCharOfDiscType);
+//            String lastCharOfDiscType = Character.toString(player.getDiscType().charAt(player.getDiscType().length() - 1));
+            this.playersDiscTypeMap.put(player.getId(), String.format("%d", i + 1));
+            i++;
         }
         this.playersCount = players.size();
     }
+
+//    private Integer idToDigit(String playerId){
+//
+//    }
 
     public TurnRecord putDisc(Player player, int column){
         TurnRecord turnRecord = null;
